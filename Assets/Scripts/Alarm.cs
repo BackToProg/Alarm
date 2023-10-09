@@ -8,6 +8,7 @@ public class Alarm : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     
     private float _volume = 0;
+    
     private void Update()
     {
         _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _volume,
