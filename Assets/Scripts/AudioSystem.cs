@@ -10,6 +10,11 @@ public class AudioSystem : MonoBehaviour
     {
         _audioSource.Play();
     }
+    
+    public void Stop()
+    {
+        _audioSource.Stop();
+    }
 
     public float ChangeVolumeValue(float volume)
     {
