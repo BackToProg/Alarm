@@ -8,7 +8,7 @@ public class Alarm : MonoBehaviour
     [SerializeField] private AudioSystem _audioSystem;
     
     private float _volume;
-    public float _currentVolume;
+    private float _currentVolume;
 
     private void OnTriggerEnter(Collider collision)
     {
