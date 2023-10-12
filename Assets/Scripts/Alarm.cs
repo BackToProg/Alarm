@@ -5,22 +5,17 @@ using UnityEngine;
 
 public class Alarm : MonoBehaviour
 {
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioSystem _audioSystem;
     
-    private float _volume = 0;
-    
-    private void Update()
-    {
-        _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _volume,
-            Time.deltaTime);
-    }
+    private float _volume;
+    public float _currentVolume;
 
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            _volume = 1;
-            _audioSource.Play();
+            StopCoroutine(Stop());
+            StartCoroutine(Play());
         }
     }
     
@@ -28,7 +23,35 @@ public class Alarm : MonoBehaviour
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            _volume = 0;
+            StopCoroutine(Play());
+            StartCoroutine(Stop());
+        }
+    }
+
+    private IEnumerator Play()
+    {
+        _audioSystem.Play();
+        _volume = 1;
+        _currentVolume = 0;
+
+        while (_currentVolume <= 1)
+        {
+            _currentVolume = _audioSystem.ChangeVolumeValue(_volume);
+
+            yield return null;
+        }
+    }
+
+    private IEnumerator Stop()
+    {
+        _volume = 0;
+        _currentVolume = 1;
+
+        while (_currentVolume >= 0)
+        {
+            _currentVolume = _audioSystem.ChangeVolumeValue(_volume);
+
+            yield return null;
         }
     }
 }
