@@ -5,6 +5,8 @@ using UnityEngine;
 public class AudioSystem : MonoBehaviour
 {
     [SerializeField] private AudioSource _audioSource;
+
+    private float _volumeCnangeSpeed = 0.2f;
     
     public void Play()
     {
@@ -19,7 +21,7 @@ public class AudioSystem : MonoBehaviour
     public float ChangeVolumeValue(float volume)
     {
         _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, volume,
-            Time.deltaTime * 0.2f);
+            Time.deltaTime * _volumeCnangeSpeed);
 
         return _audioSource.volume;
     }
